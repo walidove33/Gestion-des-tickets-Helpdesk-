@@ -1,0 +1,30 @@
+// import React from 'react';
+// import { Navigate, Outlet } from 'react-router-dom';
+
+// const ProtectedRoute = ({ isAuthenticated, redirectPath = '/login' }) => {
+//   if (!isAuthenticated) {
+//     return <Navigate to={redirectPath} replace />;
+//   }
+
+//   return <Outlet />;
+// };
+
+// export default ProtectedRoute;
+
+
+import React from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+
+const ProtectedRoute = ({ isAuthenticated, requiredRole, userRole, redirectPath = '/login' }) => {
+    if (!isAuthenticated) {
+        return <Navigate to={redirectPath} replace />;
+    }
+
+    if (requiredRole && userRole !== requiredRole) {
+        return <Navigate to="/unauthorized" replace />;
+    }
+
+    return <Outlet />;
+};
+
+export default ProtectedRoute;
